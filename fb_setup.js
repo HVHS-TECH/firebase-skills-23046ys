@@ -8,13 +8,13 @@
 // Return: n/a
 /**************************************************************/
   const firebaseConfig = {
-    apiKey: ,
-    authDomain: ,
-    databaseURL: ,
-    projectId: ,
-    storageBucket: ,
-    messagingSenderId:,
-    appId:
+    apiKey: "AIzaSyCrxvLknYgjuXnOAcCBKQIWzZ-Y8lWT1jE",
+    authDomain: "yuv-singh-12comp-1169b.firebaseapp.com",
+    databaseURL: "https://yuv-singh-12comp-1169b-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "yuv-singh-12comp-1169b",
+    storageBucket: "yuv-singh-12comp-1169b.firebasestorage.app",
+    messagingSenderId: "475182460149",
+    appId: "1:475182460149:web:6f23899c85b799f27829bc"
   };
 
   // Initialize Firebase
