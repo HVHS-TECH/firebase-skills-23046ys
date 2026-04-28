@@ -40,8 +40,40 @@ function simpleRead() {
     console.log("Leaving simpleRead")
 }
 
+function safeRead() {
+   console.log("Reading message");
+    firebase.database().ref('/').child('message').once('value', display);
+    console.log("Leaving safeRead")
+     function fb_readError(error) {
+    console.log("There was an error reading the message");
+    console.error(error);
+  }
+
+}
+
 function displayRead(snapshot) {
     console.log("Running displayRead(), the message is: " + snapshot.val())
     HTML_OUTPUT.innerHTML = snapshot.val();
 }
+
+function display(snapshot) {
+    var dbData = snapshot.val();
+    if (dbData == null) { // if there is no data, dbData will be null.
+        console.log('There was no record when trying to read the message');
+        HTML_OUTPUT.innerHTML = 'There was no record when trying to read the message';
+    }
+    else {
+        console.log("The message is: " + dbData)
+        HTML_OUTPUT.innerHTML = snapshot.val();
+    }
+    
+}
+
+function fb_readListener(){
+    console.log("Read Listener");
+    firebase.database().ref('/message').on('value', fb_logDatabaseRead)
+}
+
+
+
 
