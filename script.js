@@ -42,14 +42,13 @@ function simpleRead() {
 
 function safeRead() {
    console.log("Reading message");
-    firebase.database().ref('/').child('message').once('value', display);
+    firebase.database().ref('/').child('message').once('value', display, fb_readError);
+
     console.log("Leaving safeRead")
-     function fb_readError(error) {
-    console.log("There was an error reading the message");
-    console.error(error);
-  }
 
 }
+
+
 
 function displayRead(snapshot) {
     console.log("Running displayRead(), the message is: " + snapshot.val())
@@ -69,10 +68,9 @@ function display(snapshot) {
     
 }
 
-function fb_readListener(){
-    console.log("Read Listener");
-    firebase.database().ref('/message').on('value', fb_logDatabaseRead)
-}
+
+
+
 
 
 
