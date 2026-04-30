@@ -8,6 +8,22 @@
 
 const HTML_OUTPUT = document.getElementById("databaseOutput");
 
+ highscoreTable = {
+  game1:{
+    users:{
+      User1:99999,
+      User2:10000,
+    }
+  },
+  game2:{
+    users:{
+      User1:13,
+      User2:14,
+    }
+  }
+}
+firebase.database().ref('/highscores').set(highscoreTable)
+
 /**************************************************************/
 // helloWorld()
 // Demonstrate a minimal write to firebase
@@ -48,6 +64,20 @@ function safeRead() {
 
 }
 
+function safeReadListener() {
+   console.log("Reading message");
+    firebase.database().ref('/').child('message').on('value', display, fb_readError);
+
+    console.log("Leaving safeRead")
+
+}
+
+function fb_readHighScores() {
+    console.log("Reading message");
+    firebase.database().ref('/highscores/game1').once('value', fb_logDatabaseRead, fb_readError);
+    console.log("Leaving simpleRead")
+}
+
 
 
 function displayRead(snapshot) {
@@ -68,10 +98,6 @@ function display(snapshot) {
     
 }
 
-
-
-
-
-
-
-
+function fb_logDatabaseRead(snapshot) {
+    console.log("Reading HighScores," + snapshot.val())
+}
