@@ -9,7 +9,7 @@
 const HTML_OUTPUT = document.getElementById("databaseOutput");
 
  highscoreTable = {
-  game1:{
+  highscores:{game1:{
     users:{
       User1:99999,
       User2:10000,
@@ -22,7 +22,8 @@ const HTML_OUTPUT = document.getElementById("databaseOutput");
     }
   }
 }
-firebase.database().ref('/highscores').set(highscoreTable)
+}
+
 
 /**************************************************************/
 // helloWorld()
@@ -73,12 +74,13 @@ function safeReadListener() {
 }
 
 function fb_readHighScores() {
-    console.log("Reading message");
+    console.log("Reading Highscores");
     firebase.database().ref('/highscores/game1').once('value', fb_logDatabaseRead, fb_readError);
-    console.log("Leaving simpleRead")
 }
 
-
+function fb_logDatabaseRead(snapshot) {
+    console.log("Reading HighScores," + snapshot.val())
+}
 
 function displayRead(snapshot) {
     console.log("Running displayRead(), the message is: " + snapshot.val())
@@ -98,6 +100,14 @@ function display(snapshot) {
     
 }
 
-function fb_logDatabaseRead(snapshot) {
-    console.log("Reading HighScores," + snapshot.val())
+
+
+function resetDatabase(){
+  firebase.database().ref('/').set(highscoreTable)
 }
+
+function changeScore(){
+  firebase.database().ref('/highscores/game1/users/User1/').set(123)
+}
+
+
