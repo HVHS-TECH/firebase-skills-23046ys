@@ -24,6 +24,23 @@ const HTML_OUTPUT = document.getElementById("databaseOutput");
 }
 }
 
+ var highscores = {
+  game1:{
+    users:{
+      User1:99999,
+      User2:10000,
+    }
+  },
+  game2:{
+    users:{
+      User1:13,
+      User2:14,
+    }
+  }
+}
+
+let names= Object.keys(highscores);
+console.log(names);
 
 
 /**************************************************************/
@@ -110,6 +127,13 @@ function resetDatabase(){
 
 function changeScore(){
   firebase.database().ref('/highscores/game1/users/User1/').set(123)
+}
+
+function readAllScores(){
+  for(i=0;i<names.length;i++){
+    let key = names[i]
+    console.log("score "+i+" is for "+ key+"."+highscores[key]+"points.")
+  }
 }
 
 
