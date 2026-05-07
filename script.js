@@ -8,7 +8,7 @@
 
 const HTML_OUTPUT = document.getElementById("databaseOutput");
 
- highscoreTable = {
+ var highscoreTable = {
   highscores:{game1:{
     users:{
       User1:99999,
@@ -23,6 +23,7 @@ const HTML_OUTPUT = document.getElementById("databaseOutput");
   }
 }
 }
+
 
 
 /**************************************************************/
@@ -75,11 +76,12 @@ function safeReadListener() {
 
 function fb_readHighScores() {
     console.log("Reading Highscores");
-    firebase.database().ref('/highscores/game1').once('value', fb_logDatabaseRead, fb_readError);
+    firebase.database().ref('/highscores/game1/users').once('value', fb_displayHighScores, fb_readError);
 }
 
-function fb_logDatabaseRead(snapshot) {
-    console.log("Reading HighScores," + snapshot.val())
+function fb_displayHighScores(snapshot) {
+    highscores = snapshot.val()
+    console.log("User1 got "+highscores["User1"]+" points")
 }
 
 function displayRead(snapshot) {
