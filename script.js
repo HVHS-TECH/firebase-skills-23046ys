@@ -10,32 +10,28 @@ const HTML_OUTPUT = document.getElementById("databaseOutput");
 
  var highscoreTable = {
   highscores:{game1:{
-    users:{
       User1:99999,
       User2:10000,
-    }
+    
   },
   game2:{
-    users:{
       User1:13,
       User2:14,
-    }
+   
   }
 }
 }
 
  var highscores = {
   game1:{
-    users:{
       User1:99999,
       User2:10000,
-    }
+    
   },
   game2:{
-    users:{
       User1:13,
       User2:14,
-    }
+    
   }
 }
 
@@ -93,7 +89,7 @@ function safeReadListener() {
 
 function fb_readHighScores() {
     console.log("Reading Highscores");
-    firebase.database().ref('/highscores/game1/users').once('value', fb_displayHighScores, fb_readError);
+    firebase.database().ref('/highscores/game1').once('value', fb_displayHighScores, fb_readError);
 }
 
 function fb_displayHighScores(snapshot) {
@@ -126,7 +122,7 @@ function resetDatabase(){
 }
 
 function changeScore(){
-  firebase.database().ref('/highscores/game1/users/User1/').set(123)
+  firebase.database().ref('/highscores/game1/User1/').set(123)
 }
 
 function readAllScores(){
@@ -136,4 +132,13 @@ function readAllScores(){
   }
 }
 
+
+
+function fb_displayHighScores2(snapshot){
+  snapshot.forEach(fb_showOneScore)
+}
+
+function fb_showOneScore(child){
+  console.log(child(val));
+}
 
