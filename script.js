@@ -22,21 +22,9 @@ const HTML_OUTPUT = document.getElementById("databaseOutput");
 }
 }
 
- var highscores = {
-  game1:{
-      User1:99999,
-      User2:10000,
-    
-  },
-  game2:{
-      User1:13,
-      User2:14,
-    
-  }
-}
+ 
 
-let names= Object.keys(highscores);
-console.log(names);
+
 
 
 /**************************************************************/
@@ -93,7 +81,7 @@ function fb_readHighScores() {
 }
 
 function fb_displayHighScores(snapshot) {
-    highscores = snapshot.val()
+    var highscores = snapshot.val()
     console.log("User1 got "+highscores["User1"]+" points")
 }
 
@@ -125,14 +113,26 @@ function changeScore(){
   firebase.database().ref('/highscores/game1/User1/').set(123)
 }
 
-function readAllScores(){
+function fb_readAllHighScores() {
+    console.log("Reading Highscores");
+    firebase.database().ref('/highscores/').once('value', readAllScores, fb_readError);
+}
+
+function readAllScores(snapshot){
+  var highscores = snapshot.val()
+  let names= Object.keys(highscores);
+console.log(highscores);
   for(i=0;i<names.length;i++){
     let key = names[i]
+    console.log(highscores[key])
     console.log("score "+i+" is for "+ key+"."+highscores[key]+"points.")
   }
 }
 
-
+function fb_readHighScores2() {
+    console.log("Reading Highscores");
+    firebase.database().ref('/highscores/game1').once('value', fb_displayHighScores2, fb_readError);
+}
 
 function fb_displayHighScores2(snapshot){
   snapshot.forEach(fb_showOneScore)
