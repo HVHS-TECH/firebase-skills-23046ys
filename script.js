@@ -139,6 +139,6 @@ function fb_displayHighScores2(snapshot){
 }
 
 function fb_showOneScore(child){
-  console.log(child(val));
+  console.log(child.val());
 }
 
