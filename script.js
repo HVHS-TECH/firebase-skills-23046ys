@@ -22,6 +22,26 @@ const HTML_OUTPUT = document.getElementById("databaseOutput");
 }
 }
 
+var highscoreTable2 = {
+  highscores:{game1:{
+      User1:99999,
+      User2:10000,
+      User3:3010,
+      User4:4332,
+      User5:90405,
+    
+  },
+  game2:{
+      User1:13,
+      User2:14,
+      User3:78,
+      User4:443,
+      User5:2210,
+   
+  }
+}
+}
+
  
 
 
@@ -109,6 +129,10 @@ function resetDatabase(){
   firebase.database().ref('/').set(highscoreTable)
 }
 
+function resetDatabase2(){
+  firebase.database().ref('/').set(highscoreTable2)
+}
+
 function changeScore(){
   firebase.database().ref('/highscores/game1/User1/').set(123)
 }
@@ -131,14 +155,14 @@ console.log(highscores);
 
 function fb_readHighScores2() {
     console.log("Reading Highscores");
-    firebase.database().ref('/highscores/game1').once('value', fb_displayHighScores2, fb_readError);
+    firebase.database().ref('/highscores/game1').orderByValue().once('value', fb_displayHighScores2, fb_readError);
 }
 
 function fb_displayHighScores2(snapshot){
-  snapshot.forEach(fb_showOneScore)
+  snapshot.forEach(fb_showScores)
 }
 
-function fb_showOneScore(child){
-  console.log(child.val());
+function fb_showScores(child){
+  console.log(child.key+" got "+child.val()+" points");
 }
 
