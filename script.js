@@ -91,6 +91,11 @@ function safeReadListener() {
    console.log("Reading message");
     firebase.database().ref('/').child('message').on('value', display, fb_readError);
 
+
+}
+
+function stopSafeReadListener() {
+    firebase.database().ref('/').child('message').off();
     console.log("Leaving safeRead")
 
 }
@@ -101,9 +106,14 @@ function fb_readHighScores() {
 }
 
 function fb_displayHighScores(snapshot) {
-    var highscores = snapshot.val()
+  var dbData = snapshot.val();
+    if (dbData == null) { // if there is no data, dbData will be null.
+        console.log('There was no record when trying to read the message');
+        HTML_OUTPUT.innerHTML = 'There was no record when trying to read the message';
+    }else{var highscores = snapshot.val()
     console.log("User1 got "+highscores["User1"]+" points")
-}
+}}
+    
 
 function displayRead(snapshot) {
     console.log("Running displayRead(), the message is: " + snapshot.val())
@@ -143,14 +153,20 @@ function fb_readAllHighScores() {
 }
 
 function readAllScores(snapshot){
-  var highscores = snapshot.val()
+ var dbData = snapshot.val();
+    if (dbData == null) { // if there is no data, dbData will be null.
+        console.log('There was no record when trying to read the message');
+        HTML_OUTPUT.innerHTML = 'There was no record when trying to read the message';
+    }else{ var highscores = snapshot.val()
   let names= Object.keys(highscores);
 console.log(highscores);
   for(i=0;i<names.length;i++){
     let key = names[i]
     console.log(highscores[key])
-    console.log("score "+i+" is for "+ key+"."+highscores[key]+"points.")
+    
+    console.log("score "+i+" is for "+ key+". "+highscores[key]["User1"]+" points.")
   }
+}
 }
 
 function fb_readHighScores2() {
@@ -159,7 +175,13 @@ function fb_readHighScores2() {
 }
 
 function fb_displayHighScores2(snapshot){
+  var dbData = snapshot.val();
+    if (dbData == null) { // if there is no data, dbData will be null.
+        console.log('There was no record when trying to read the message');
+        HTML_OUTPUT.innerHTML = 'There was no record when trying to read the message';
+    }else{
   snapshot.forEach(fb_showScores)
+    }
 }
 
 function fb_showScores(child){
