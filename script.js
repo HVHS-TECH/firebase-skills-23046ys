@@ -164,7 +164,7 @@ console.log(highscores);
     let key = names[i]
     console.log(highscores[key])
     
-    console.log("score "+i+" is for "+ key+". "+highscores[key]["User1"]+" points.")
+    console.log("score "+(i+1)+" is for "+ key+". "+highscores[key]["User1"]+" points.")
   }
 }
 }
